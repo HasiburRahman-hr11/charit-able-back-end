@@ -9,7 +9,7 @@ exports.addNewCase = async (req, res) => {
         description
     }
 
-    if (req.files.thumbnail) {
+    if (req?.files?.thumbnail) {
         const thumbnailData = req.files.thumbnail.data;
         const encodedThumbnail = thumbnailData.toString('base64');
         const thumbnail = Buffer.from(encodedThumbnail, 'base64');
