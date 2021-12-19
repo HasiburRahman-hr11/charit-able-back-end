@@ -7,14 +7,14 @@ exports.createNewUser = async (req, res) => {
         const existingUser = await User.findOne({ email: email });
         if (existingUser) {
             return res.status(200).json(existingUser);
+        } else {
+            const newUser = new User({
+                name,
+                email
+            });
+            await newUser.save();
+            res.status(201).json(newUser);
         }
-
-        const newUser = new User({
-            name,
-            email
-        });
-        await newUser.save();
-        res.status(201).json(newUser);
 
     } catch (error) {
         console.log(error);
@@ -40,7 +40,7 @@ exports.getUserByEmail = async (req, res) => {
     try {
         const user = await User.findOne({ email: email });
         return res.status(200).json(user)
-        
+
     } catch (error) {
         console.log(error);
         res.status(500).json(error);
